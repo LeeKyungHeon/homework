@@ -1,11 +1,24 @@
-#include "pch.h"
+#include <iostream>
+#include <Windows.h>
+#include <conio.h>
 
-#pragma comment(lib, "winmm.lib")
-
-enum NonFire	// ºÒ¹ß Á¶°Ç
+enum NonFire	// ë¶ˆë°œ ì¡°ê±´
 {
 	MAXDEGREE = 80,
 	MAXCOUNT = 5,
+	MINCOUNT = 0,
+};
+
+enum KeyBoard	// í‚¤ë³´ë“œ
+{
+	UP = 72,
+	DOWN = 80,
+};
+
+enum Start	// 
+{
+	STARTCOUNT = 5,
+	STARTDEGREE = 10,
 };
 
 class Gun
@@ -13,94 +26,87 @@ class Gun
 public:
 	Gun(int count, int degree) : Count(count), Degree(degree)
 	{
-		cout << "¹æÇâÅ° À§ : ¹ß»ç" << endl << "¹æÇâÅ° ¾Æ·¡ : ÀåÀü" << endl;
+		std::cout << "ë°©í–¥í‚¤ ìœ„ : ë°œì‚¬" << std::endl << "ë°©í–¥í‚¤ ì•„ë˜ : ì¥ì „" << std::endl;	// ì‹œì‘ ì‹œ ì¡°ì‘ë²• ì•ˆë‚´
 	}
 	~Gun() {}
 
 public:
 	void Fire()
 	{
-		if (Count == 0)	// ÃÑ¾Ë 0¹ßÀÏ½Ã ÀçÀåÀü
+		if (Count == MINCOUNT)	// ì´ì•Œ 0ë°œì¼ì‹œ ìë™ ì¬ì¥ì „
 		{
-			//Reload(); // ÀçÀåÀü ÇÔ¼ö
-			Count = 0;
-			cout << "ÀçÀåÀüÀÌ ÇÊ¿äÇØ!!" << endl;				//0°³°¡ µÇ°í fire()ÇÔ¼ö¸¦ È£Ãâ½Ã ´Ù½Ã ÀåÀüµÇ¾îÀÖ´Â°ÍÀ» ¹Ù²å½À´Ï´Ù.
-			//GunInfo();
+			std::cout << "ì¬ì¥ì „ì´ í•„ìš”í•´!!" << std::endl;				// 0ê°œê°€ ë˜ê³  fire()í•¨ìˆ˜ë¥¼ í˜¸ì¶œì‹œ ë‹¤ì‹œ ì¥ì „ë˜ì–´ìˆëŠ”ê²ƒì„ ë°”ê¿¨ìŠµë‹ˆë‹¤.
 			return;
 		}
 
-		if (Degree >= MAXDEGREE)	// ÃÑ ¿Âµµ°¡ ÇÑ°èÄ¡ ÀÏ ¶§
+		if (Degree >= MAXDEGREE)	// ì´ ì˜¨ë„ê°€ í•œê³„ì¹˜ ì¼ ë•Œ
 		{
-			cout << "¾Ñ ¶ß°Å! ½ÄÀ»¶§±îÁö ±â´Ù·Á¾ß °Ú±º..." << endl;
+			std::cout << "ì•— ëœ¨ê±°! ì‹ì„ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì•¼ ê² êµ°..." << std::endl;
 
 			int n = Degree / 10;
 
-			for (int i = 0; i < n; i++)						//ÃÑÀÇ ¿Âµµ¸¦ 0µµ°¡ µÉ¶§±îÁö ³»·ÁÁİ´Ï´Ù.
-			{												//ÃÑÀÇ¿Âµµ´Â 0.5ÃÊ¸¶´Ù 10µµ¾¿ ³»·Á°©´Ï´Ù.
+			for (int i = 0; i < n; i++)						// ì´ì˜ ì˜¨ë„ë¥¼ 0ë„ê°€ ë ë•Œê¹Œì§€ ë‚´ë ¤ì¤Œ
+			{												// ì´ì˜ì˜¨ë„ëŠ” 0.5ì´ˆë§ˆë‹¤ 10ë„ì”© ë‚´ë ¤ê°
 				Sleep(500);
 				Degree -= 10;
 				GunInfo();
 			}
 		}
 
-		else
+		else // ê·¸ ì™¸ ìƒí™©ì€ ì´ì•Œ ë°œì‚¬
 		{
-			cout << "»§¾ß»§¾ß!" << endl;
+			std::cout << "ë¹µì•¼ë¹µì•¼!" << std::endl;
 			Count--;
 			Degree += 10;
 			GunInfo();
 		}
-
-		
 	}
 
-	void GunInfo() const									//ÃÑÀÇ »óÅÂ¸¦ ¾Ë·ÁÁÖ´Â ÇÔ¼ö¸¦ µû·Î ¸¸µé¾ú½À´Ï´Ù.
+	void GunInfo() const	// ì´ì˜ ìƒíƒœë¥¼ ì•Œë ¤ì¤Œ
 	{
-		cout << "³²Àº ÃÑ¾Ë°³¼ö : " << Count << endl;
-		cout << "ÃÑ ¿Âµµ : " << Degree << endl;
+		std::cout << "ë‚¨ì€ ì´ì•Œê°œìˆ˜ : " << Count << std::endl;
+		std::cout << "ì´ ì˜¨ë„ : " << Degree << std::endl;
 	}
 
-	void Reload()
+	void Reload()	// ì´ì•Œ ì¥ì „
 	{
-		
-		
-		if (Count < 5)
+		if (Count < MAXCOUNT)
 		{
-			cout << "Á¦±â¶ö ÃÑ¾ËÀÌ ¾øÀİ¾Æ!! ¾î¼­ ÀåÀüÇØ¾ßÇØ!!" << endl;
-			Count = 5;	// ÃÑ¾Ë ´Ù½Ã ÃæÀü
+			std::cout << "ì œê¸°ë„ ì´ì•Œì´ ì—†ì–ì•„!! ì–´ì„œ ì¥ì „í•´ì•¼í•´!!" << std::endl;
+			Count = MAXCOUNT;	// ì´ì•Œ ë‹¤ì‹œ ì¶©ì „
+			GunInfo();
 		}
-		else // ÃÑ¾Ë ²ËÃ¡´Âµ¥ ÀåÀü ¶Ç ´©¸¦½Ã
+		else // ì´ì•Œ ê½‰ì°¼ëŠ”ë° ì¥ì „ ë˜ ëˆ„ë¥¼ì‹œ
 		{
-			cout << "²ËÃ¡´Âµ¥ ¹» ÀåÀüÀÌ¾ß. ½î±â³ªÇØ!!" << endl;
+			std::cout << "ê½‰ì°¼ëŠ”ë° ë­˜ ì¥ì „ì´ì•¼. ì˜ê¸°ë‚˜í•´!!" << std::endl;
+			GunInfo();
 		}
-
 	}
 
 private:
-	int Count = 5;	// ÃÑ¾Ë °³¼ö
-	int Degree;		// ÃÑ¾Ë ¿Âµµ
+	int Count = MAXCOUNT;	// ì´ì•Œ ê°œìˆ˜
+	int Degree;				// ì´ì•Œ ì˜¨ë„
 };
 
 
 int main()
 {
-	Gun gun(5, 10);
+	Gun gun(STARTCOUNT, STARTDEGREE);
 
-	int key;
-
-	while (1)
+	int key;	// í‚¤ ê°’
+		
+	while (1)	// ê²Œì„ ì¡°ì‘
 	{
 		if (_kbhit())
 		{
 			key = _getch();
-			key = _getch();
 
 			switch (key)
 			{
-			case 72:
+			case UP:
 				gun.Fire();
 				break;
-			case 80:
+			case DOWN:
 				gun.Reload();
 				break;
 			}
