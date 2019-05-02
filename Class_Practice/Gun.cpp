@@ -4,21 +4,21 @@
 
 enum NonFire	// 불발 조건
 {
-	MAXDEGREE = 80,
-	MAXCOUNT = 5,
-	MINCOUNT = 0,
+	MAXDEGREE = 80,	// 최대 총 온도
+	MAXCOUNT = 5,	// 최대 총알수
+	MINCOUNT = 0,	// 최저 총알수
 };
 
 enum KeyBoard	// 키보드
 {
-	UP = 72,
+	UP = 72,	
 	DOWN = 80,
 };
 
-enum Start		// 시작
+enum Start		
 {
-	STARTCOUNT = 5,
-	STARTDEGREE = 10,
+	STARTCOUNT = 5,		// 시작 총알수
+	STARTDEGREE = 10,	// 시작 총 온도수
 };
 
 class Gun
@@ -94,7 +94,7 @@ int main()
 	Gun gun(STARTCOUNT, STARTDEGREE);
 
 	int key;	// 키 값
-		
+
 	while (1)	// 게임 조작
 	{
 		if (_kbhit())
