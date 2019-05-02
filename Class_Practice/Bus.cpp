@@ -1,5 +1,18 @@
-#include "pch.h"
-#include "vld.h"
+#include <iostream>
+
+enum BusData
+{
+	CHARGE = 1000,	// ë²„ìŠ¤ë¹„	
+	CUSTOMER = 0,	// ì†ë‹˜ ìˆ˜
+};
+
+enum SocialPosition
+{
+	// ë³¸ë¬¸ì— cinì— ì‚¬ìš©í•  ìˆ˜
+	ADULT = 1,		// ì„±ì¸
+	STUDENT = 2,	// í•™ìƒ
+	KIDS = 3,		// ìœ ì•„
+};
 
 class Bus
 {
@@ -9,13 +22,13 @@ public:
 
 	virtual void Ride(int money) = 0;
 
-	virtual void CountCustomer() = 0;				//¼Õ´ÔÀÇ ¼ö¸¦ ¼¼´Â °¡»ó ÇÔ¼öÀÔ´Ï´Ù.
-	virtual int PrintCustomer() = 0;				//¼Õ´ÔÀÇ ¼ö¸¦ Ãâ·ÂÇÕ´Ï´Ù.
+	virtual void CountCustomer() = 0;				// ì†ë‹˜ì˜ ìˆ˜ë¥¼ ì„¸ëŠ” ê°€ìƒ í•¨ìˆ˜
+	virtual int PrintCustomer() = 0;				// ì†ë‹˜ì˜ ìˆ˜ë¥¼ ì¶œë ¥
 
 protected:
-	int Charge = 1000;	// ¹ö½ººñ
-	float Sales;		// ÇÒÀÎ·ü
-	int m_nCustomer = 0;
+	int Charge = CHARGE;	// ë²„ìŠ¤ë¹„
+	float Sales;		// í• ì¸ë¥ 
+	int m_nCustomer = CUSTOMER;
 };
 
 class Adult : public Bus
@@ -24,19 +37,19 @@ public:
 	Adult(float sales) : Bus(sales) {}
 	~Adult() {}
 
-	virtual void Ride(int money) override
+	virtual void Ride(int money) override	// ì„±ì¸ íƒ‘ìŠ¹ì‹œ ìš”ê¸ˆ ê³„ì‚°
 	{
-		cout << "¼ºÀÎ ÀÔ´Ï´Ù." << endl;
-		cout << money << "¿ø ¹Ş¾Ò½À´Ï´Ù." << endl;
-		cout << "°Å½º¸§µ·Àº " << money - (Charge - Charge * Sales) << "¿ø ÀÔ´Ï´Ù." << endl;
+		std::cout << "ì„±ì¸ ì…ë‹ˆë‹¤." << std::endl;
+		std::cout << money << "ì› ë°›ì•˜ìŠµë‹ˆë‹¤." << std::endl;
+		std::cout << "ê±°ìŠ¤ë¦„ëˆì€ " << money - (Charge - Charge * Sales) << "ì› ì…ë‹ˆë‹¤." << std::endl;
 	}
 
-	virtual void CountCustomer() override
+	virtual void CountCustomer() override	// ì„±ì¸ ì†ë‹˜ ìˆ˜ ê³„ì‚°
 	{
 		m_nCustomer++;
 	}
 
-	virtual int PrintCustomer() override
+	virtual int PrintCustomer() override	// ì„±ì¸ ì†ë‹˜ ìˆ˜ ì¶œë ¥ 
 	{
 		return m_nCustomer;
 	}
@@ -48,19 +61,19 @@ public:
 	Student(float sales) : Bus(sales) {}
 	~Student() {}
 
-	virtual void Ride(int money) override
+	virtual void Ride(int money) override	// í•™ìƒ íƒ‘ìŠ¹ì‹œ ìš”ê¸ˆ ê³„ì‚°
 	{
-		cout << "ÇĞ»ı ÀÔ´Ï´Ù." << endl;
-		cout << money << "¿ø ¹Ş¾Ò½À´Ï´Ù." << endl;
-		cout << "°Å½º¸§µ·Àº " << money - (Charge - Charge * Sales) << "¿ø ÀÔ´Ï´Ù." << endl;
+		std::cout << "í•™ìƒ ì…ë‹ˆë‹¤." << std::endl;
+		std::cout << money << "ì› ë°›ì•˜ìŠµë‹ˆë‹¤." << std::endl;
+		std::cout << "ê±°ìŠ¤ë¦„ëˆì€ " << money - (Charge - Charge * Sales) << "ì› ì…ë‹ˆë‹¤." << std::endl;
 	}
 
-	virtual void CountCustomer() override
+	virtual void CountCustomer() override	// í•™ìƒ ì†ë‹˜ ìˆ˜ ê³„ì‚°
 	{
 		m_nCustomer++;
 	}
 
-	virtual int PrintCustomer() override
+	virtual int PrintCustomer() override	// í•™ìƒ ì†ë‹˜ ìˆ˜ ì¶œë ¥
 	{
 		return m_nCustomer;
 	}
@@ -71,19 +84,19 @@ class Kids : public Bus
 public:
 	Kids(float sales) : Bus(sales) {}
 	~Kids() {}
-	virtual void Ride(int money) override
+	virtual void Ride(int money) override	// ìœ ì•„ íƒ‘ìŠ¹ì‹œ ìš”ê¸ˆ ê³„ì‚°
 	{
-		cout << "À¯¾Æ ÀÔ´Ï´Ù." << endl;
-		cout << money << "¿ø ¹Ş¾Ò½À´Ï´Ù." << endl;
-		cout << "°Å½º¸§µ·Àº " << money - (Charge - Charge * Sales) << "¿ø ÀÔ´Ï´Ù." << endl;
+		std::cout << "ìœ ì•„ ì…ë‹ˆë‹¤." << std::endl;
+		std::cout << money << "ì› ë°›ì•˜ìŠµë‹ˆë‹¤." << std::endl;
+		std::cout << "ê±°ìŠ¤ë¦„ëˆì€ " << money - (Charge - Charge * Sales) << "ì› ì…ë‹ˆë‹¤." << std::endl;
 	}
 
-	virtual void CountCustomer() override
+	virtual void CountCustomer() override	// ìœ ì•„ ì†ë‹˜ ìˆ˜ ê³„ì‚°
 	{
 		m_nCustomer++;
 	}
 
-	virtual int PrintCustomer() override
+	virtual int PrintCustomer() override	// ìœ ì•„ ì†ë‹˜ ìˆ˜ ì¶œë ¥
 	{
 		return m_nCustomer;
 	}
@@ -92,66 +105,79 @@ public:
 
 int main()
 {
-	int select;	// À¯Çü ¼±ÅÃ
-	int money;	// ÁöºÒÇÒ ¹ö½ººñ
+	int select;	// ìœ í˜• ì„ íƒ
+	int money;	// ì§€ë¶ˆí•  ë²„ìŠ¤ë¹„
 
-	Adult adult(0.0);
-	Student student(0.2);
-	Kids kids(0.5);
+	float adultsales = 0.0f;	// ì„±ì¸ í• ì¸ìœ¨
+	float studentsales = 0.2f;	// í•™ìƒ í• ì¸ìœ¨
+	float kidssales = 0.5f;		// ìœ ì•„ í• ì¸ìœ¨
+
+	Adult adult(adultsales);
+	Student student(studentsales);
+	Kids kids(kidssales);
+
 	while (1)
 	{
-		cout << "1. ¿îÇà Á¾·á" << endl;
-		cout << "¾ó¸¶ ³»½Ã°Ú½À´Ï±î?(¹ö½ººñ´Â 1000¿ø) : ";
-		cin >> money;
-		if (money == 1)
+		std::cout << "1. ìš´í–‰ ì¢…ë£Œ" << std::endl;	// ìš´í–‰ ì¢…ë£Œ ì•ˆë‚´
+		std::cout << "ì–¼ë§ˆ ë‚´ì‹œê² ìŠµë‹ˆê¹Œ?(ë²„ìŠ¤ë¹„ëŠ” 1000ì›) : ";	// ë²„ìŠ¤ë¹„ ì•ˆë‚´
+		std::cin >> money;
+
+		if (money == 1)	// 1 ì„ íƒì‹œ ìš´í–‰ì¢…ë£Œ
 			break;
-		else if (money < 1000)
+
+		/*
+		ì—¬ê¸°ì„œ ì˜ì•„í• ìˆ˜ ìˆëŠ”ë°
+		ë³´í†µ í˜„ì‹¤ì—ì„œ ë²„ìŠ¤íƒ‘ìŠ¹ ì‹œìŠ¤í…œì€ ì‹ ë¶„ì— ë§ê²Œ ê¸ˆì•¡ì„ ë‚´ë©´ ë˜ì§€ë§Œ
+		ì œê°€ ë°›ì€ ë¬¸ì œì—ì„œëŠ” ê¸ˆì•¡ì„ ë‚´ê³  í• ì¸ë°›ëŠ” ì‹ìœ¼ë¡œ ë¬¸ì œë¥¼ ë§Œë“¤ë¼ í•œê±¸ë¡œ ì´í•´í•´ì„œ
+		ë²„ìŠ¤ë¹„ ê¸°ì¤€ì„ ì •í•´ë†“ê³  ê·¸ ê¸ˆì•¡ì— ëª» ë¯¸ì¹ ì‹œ ë²„ìŠ¤ë¥¼ ëª»íƒ€ëŠ” ë°©ì‹ìœ¼ë¡œ êµ¬í˜„í–ˆìŠµë‹ˆë‹¤.
+		*/
+
+		else if (money < CHARGE)
 		{
-			cout << "³ª°¡!! Get Out!!" << endl;
+			std::cout << "ë‚˜ê°€!! Get Out!!" << std::endl;
 		}
 
 		else
 		{
-			cout << "´ç½ÅÀº ¹«¾ùÀÔ´Ï±î?(1. ¼ºÀÎ 2. ÇĞ»ı 3. À¯¾Æ) ";
-			cin >> select;
+			std::cout << "ë‹¹ì‹ ì€ ë¬´ì—‡ì…ë‹ˆê¹Œ?(1. ì„±ì¸ 2. í•™ìƒ 3. ìœ ì•„ 4. ìš´í–‰ì¢…ë£Œ) ";
+			std::cin >> select;
 
-			if (select == 1)
+			if (select == ADULT)
 			{
 				adult.Ride(money);
 				adult.CountCustomer();
-				//break;
 			}
 
-			else if (select == 2)
+			else if (select == STUDENT)
 			{
 				student.Ride(money);
 				student.CountCustomer();
-				//break;
 			}
 
-			else if (select == 3)
+			else if (select == KIDS)
 			{
 				kids.Ride(money);
 				kids.CountCustomer();
-				//break;
 			}
 
 			else if (select == 4)
 			{
 				break;
-				
 			}
 		}
 	}
-	cout << "¼ºÀÎ : " << adult.PrintCustomer() << endl;
-	cout << "ÇĞ»ı : " << student.PrintCustomer() << endl;
-	cout << "À¯¾Æ : " << kids.PrintCustomer() << endl;
+
+	// ìš´í–‰ì¢…ë£Œí›„ ì¶œë ¥
+
+	std::cout << "ì„±ì¸ : " << adult.PrintCustomer() << std::endl;
+	std::cout << "í•™ìƒ : " << student.PrintCustomer() << std::endl;
+	std::cout << "ìœ ì•„ : " << kids.PrintCustomer() << std::endl;
 
 	return 0;
 }
 
-/* 
-°¡»óÇÔ¼ö¸¦ overrideÇÏ´Â ºÎºĞ¿¡ overrid Å°¿öµå¸¦ Ãß°¡Çß°í
-¿îÇà Á¾·á¸¦ ÇÒ ¼ö ÀÖ°Ô ¸¸µé¾ú°í, ¼Õ´ÔÀÇ ¼ö¸¦ countÇØ¼­
-¿îÇà Á¾·á½Ã Print ÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤ Çß½À´Ï´Ù.
+/*
+ê°€ìƒí•¨ìˆ˜ë¥¼ overrideí•˜ëŠ” ë¶€ë¶„ì— overrid í‚¤ì›Œë“œë¥¼ ì¶”ê°€í–ˆê³ 
+ìš´í–‰ ì¢…ë£Œë¥¼ í•  ìˆ˜ ìˆê²Œ ë§Œë“¤ì—ˆê³ , ì†ë‹˜ì˜ ìˆ˜ë¥¼ countí•´ì„œ
+ìš´í–‰ ì¢…ë£Œì‹œ Print í•  ìˆ˜ ìˆë„ë¡ ìˆ˜ì • í–ˆìŠµë‹ˆë‹¤.
 */
