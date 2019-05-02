@@ -15,7 +15,7 @@ enum KeyBoard	// 키보드
 	DOWN = 80,
 };
 
-enum Start	// 시작
+enum Start		// 시작
 {
 	STARTCOUNT = 5,
 	STARTDEGREE = 10,
